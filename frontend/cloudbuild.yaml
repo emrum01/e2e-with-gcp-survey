@@ -1,4 +1,7 @@
 # Frontend build configuration
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
   # ビルド
   - name: 'node:20'
