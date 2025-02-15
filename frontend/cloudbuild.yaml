@@ -12,16 +12,16 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
-      '-t', 'gcr.io/$PROJECT_ID/survey-frontend:$COMMIT_SHA',
-      '-t', 'gcr.io/$PROJECT_ID/survey-frontend:latest',
+      '-t', 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:$COMMIT_SHA',
+      '-t', 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:latest',
       '.'
     ]
 
   # イメージのプッシュ
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/survey-frontend:$COMMIT_SHA']
+    args: ['push', 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:$COMMIT_SHA']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/survey-frontend:latest']
+    args: ['push', 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:latest']
 
   # Cloud Runへのデプロイ
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -31,7 +31,7 @@ steps:
       - 'deploy'
       - 'survey-frontend-${_ENV}'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/survey-frontend:$COMMIT_SHA'
+      - 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:$COMMIT_SHA'
       - '--region'
       - '${_REGION}'
       - '--platform'
@@ -43,5 +43,5 @@ substitutions:
   _REGION: asia-northeast1
 
 images:
-  - 'gcr.io/$PROJECT_ID/survey-frontend:$COMMIT_SHA'
-  - 'gcr.io/$PROJECT_ID/survey-frontend:latest'
+  - 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:$COMMIT_SHA'
+  - 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/survey-repo/survey-frontend:latest'

@@ -6,7 +6,6 @@ terraform {
       version = "~> 5.0"
     }
   }
-  backend "gcs" {}
 }
 
 provider "google" {
@@ -82,7 +81,7 @@ resource "google_cloud_run_v2_service" "backend" {
 
   template {
     containers {
-      image = "gcr.io/${var.project_id}/survey-backend:latest"
+              image = "asia-northeast1-docker.pkg.dev/${var.project_id}/survey-repo/survey-backend:latest"
       
       env {
         name  = "DB_HOST"
@@ -116,7 +115,7 @@ resource "google_cloud_run_v2_service" "frontend" {
 
   template {
     containers {
-      image = "gcr.io/${var.project_id}/survey-frontend:latest"
+              image = "asia-northeast1-docker.pkg.dev/${var.project_id}/survey-repo/survey-frontend:latest"
       
       env {
         name  = "BACKEND_URL"
