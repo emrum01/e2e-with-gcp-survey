@@ -1,3 +1,4 @@
+# Frontend build configuration
 steps:
   # ビルド
   - name: 'node:20'
