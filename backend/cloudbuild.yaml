@@ -1,0 +1,40 @@
+steps:
+  # Dockerイメージのビルド
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/$PROJECT_ID/survey-backend:$COMMIT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/survey-backend:latest',
+      '.'
+    ]
+
+  # イメージのプッシュ
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/survey-backend:$COMMIT_SHA']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/survey-backend:latest']
+
+  # Cloud Runへのデプロイ
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'survey-backend-${_ENV}'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/survey-backend:$COMMIT_SHA'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--vpc-connector'
+      - 'survey-vpc-connector-${_ENV}'
+      - '--allow-unauthenticated'
+
+substitutions:
+  _ENV: dev
+  _REGION: asia-northeast1
+
+images:
+  - 'gcr.io/$PROJECT_ID/survey-backend:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/survey-backend:latest'
