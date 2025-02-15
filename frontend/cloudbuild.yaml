@@ -1,6 +1,5 @@
 # Frontend build configuration
-options:
-  logging: CLOUD_LOGGING_ONLY
+logsBucket: 'gs://e2e-with-gcp-survey_cloudbuild'
 
 steps:
   # ビルド
