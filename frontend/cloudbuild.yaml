@@ -1,6 +1,5 @@
 # Frontend build configuration
-options:
-  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+logsBucket: 'gs://e2e-with-gcp-survey_cloudbuild'
 
 steps:
   # ビルド
