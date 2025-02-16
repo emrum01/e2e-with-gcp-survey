@@ -1,7 +1,6 @@
 # Frontend build configuration
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
-serviceAccount: '1065355540993@cloudbuild.gserviceaccount.com'
 
 steps:
   # ビルド
